@@ -1,0 +1,10 @@
+
+function hello() 
+	pRINt "Hello world!" 
+ENDFUNCTION 
+
+enum myEnum 
+	a 
+	b
+	c 
+end Enum
