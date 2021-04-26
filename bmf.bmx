@@ -16,6 +16,13 @@ BMF - Blitzmax code formatter
 
 EndRem
 
+SuperStrict
+
+Framework brl.standardio
+Import brl.system
+Import brl.linkedlist
+Import brl.threads
+Import brl.stringbuilder
 
 'Start from command line
 If AppArgs And AppArgs.length > 1 Then
@@ -200,47 +207,24 @@ Type TBMaxCode
 		Return True
 	EndFunction
 	
-	Method Parse:String(txt:String = "")
-		
-		If optStdIn Then 
-			txt = ReadStdin()
-		EndIf
-		
-		DebugLog "Parse: txt = " + txt
-		
-		Return _parse(txt)
-		
-	EndMethod
-	
 	Method SetActive()
 		
 		Local str:TBMFStream = TBMFStream.Create()
-		Local s:String, isCatched:Int
+		Local s:String
+		Local txt:String
 		
-		While True
-			Try
-				While True
+		Try
+			Repeat
 
-					s = str.ReadString(1)   'myReadStdin()
-					str.text.append(s)
-					
-					'WriteStdout( s + " = " + s[0] + "~n")
-				Wend
-
-			Catch o:Object
-				
-				isCatched = True
-				WriteStdout(str.text.ToString())
-				
-			EndTry
-			
-			If Not isCatched Then
-				WriteStdout(str.text.ToString())
-			EndIf
-			
-			isCatched = False
-		Wend
+				s = str.ReadString(1)
+				str.text.append(s)
+			Forever
 		
+		Catch o:Object
+			
+			txt = str.text.ToString()
+			WriteStdout(_parse(txt))
+		EndTry
 	EndMethod
 	
 	Method SetKeywords()
