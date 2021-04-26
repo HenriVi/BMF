@@ -1,0 +1,6 @@
+*
+!*.*
+*.debug
+*.exe
+/.bmx
+/.vscode
